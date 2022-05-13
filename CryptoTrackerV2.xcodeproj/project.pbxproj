@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		88F25A6C282E6A7400EE8B0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A6B282E6A7400EE8B0F /* AppDelegate.swift */; };
 		88F25A6E282E6A7400EE8B0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A6D282E6A7400EE8B0F /* SceneDelegate.swift */; };
-		88F25A70282E6A7400EE8B0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A6F282E6A7400EE8B0F /* ViewController.swift */; };
 		88F25A73282E6A7400EE8B0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88F25A71282E6A7400EE8B0F /* Main.storyboard */; };
 		88F25A75282E6A7500EE8B0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88F25A74282E6A7500EE8B0F /* Assets.xcassets */; };
 		88F25A78282E6A7500EE8B0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88F25A76282E6A7500EE8B0F /* LaunchScreen.storyboard */; };
+		88F25A80282E6EE200EE8B0F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A7F282E6EE100EE8B0F /* MainViewController.swift */; };
+		88F25A82282E6EFD00EE8B0F /* DetailCoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A81282E6EFD00EE8B0F /* DetailCoinViewController.swift */; };
+		88F25A86282E732D00EE8B0F /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A85282E732D00EE8B0F /* CryptoTableViewCell.swift */; };
+		88F25A90282E7BFA00EE8B0F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A8F282E7BFA00EE8B0F /* NetworkManager.swift */; };
+		88F25A92282E7C4400EE8B0F /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A91282E7C4400EE8B0F /* ImageManager.swift */; };
+		88F25A94282E81A800EE8B0F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A93282E81A800EE8B0F /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		88F25A68282E6A7400EE8B0F /* CryptoTrackerV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoTrackerV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88F25A6B282E6A7400EE8B0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88F25A6D282E6A7400EE8B0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		88F25A6F282E6A7400EE8B0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		88F25A72282E6A7400EE8B0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88F25A74282E6A7500EE8B0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88F25A77282E6A7500EE8B0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		88F25A79282E6A7500EE8B0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88F25A7F282E6EE100EE8B0F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		88F25A81282E6EFD00EE8B0F /* DetailCoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoinViewController.swift; sourceTree = "<group>"; };
+		88F25A85282E732D00EE8B0F /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
+		88F25A8F282E7BFA00EE8B0F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		88F25A91282E7C4400EE8B0F /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		88F25A93282E81A800EE8B0F /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,84 @@
 		88F25A6A282E6A7400EE8B0F /* CryptoTrackerV2 */ = {
 			isa = PBXGroup;
 			children = (
+				88F25A89282E79BE00EE8B0F /* MainCryptoTable */,
+				88F25A88282E797E00EE8B0F /* DetailCoinViewController */,
+				88F25A87282E796300EE8B0F /* CryptoTableViewCell */,
+				88F25A8A282E79F100EE8B0F /* StoryBoard */,
+				88F25A8E282E7AD200EE8B0F /* Models */,
+				88F25A8D282E7A7100EE8B0F /* Services */,
+				88F25A8C282E7A3800EE8B0F /* Supporting Files */,
+				88F25A8B282E7A2300EE8B0F /* Resources */,
+			);
+			path = CryptoTrackerV2;
+			sourceTree = "<group>";
+		};
+		88F25A87282E796300EE8B0F /* CryptoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A85282E732D00EE8B0F /* CryptoTableViewCell.swift */,
+			);
+			path = CryptoTableViewCell;
+			sourceTree = "<group>";
+		};
+		88F25A88282E797E00EE8B0F /* DetailCoinViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A81282E6EFD00EE8B0F /* DetailCoinViewController.swift */,
+			);
+			path = DetailCoinViewController;
+			sourceTree = "<group>";
+		};
+		88F25A89282E79BE00EE8B0F /* MainCryptoTable */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A7F282E6EE100EE8B0F /* MainViewController.swift */,
+			);
+			path = MainCryptoTable;
+			sourceTree = "<group>";
+		};
+		88F25A8A282E79F100EE8B0F /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A71282E6A7400EE8B0F /* Main.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		88F25A8B282E7A2300EE8B0F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A74282E6A7500EE8B0F /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		88F25A8C282E7A3800EE8B0F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				88F25A6B282E6A7400EE8B0F /* AppDelegate.swift */,
 				88F25A6D282E6A7400EE8B0F /* SceneDelegate.swift */,
-				88F25A6F282E6A7400EE8B0F /* ViewController.swift */,
-				88F25A71282E6A7400EE8B0F /* Main.storyboard */,
-				88F25A74282E6A7500EE8B0F /* Assets.xcassets */,
 				88F25A76282E6A7500EE8B0F /* LaunchScreen.storyboard */,
 				88F25A79282E6A7500EE8B0F /* Info.plist */,
 			);
-			path = CryptoTrackerV2;
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		88F25A8D282E7A7100EE8B0F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A8F282E7BFA00EE8B0F /* NetworkManager.swift */,
+				88F25A91282E7C4400EE8B0F /* ImageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		88F25A8E282E7AD200EE8B0F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				88F25A93282E81A800EE8B0F /* Model.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +217,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88F25A70282E6A7400EE8B0F /* ViewController.swift in Sources */,
+				88F25A90282E7BFA00EE8B0F /* NetworkManager.swift in Sources */,
 				88F25A6C282E6A7400EE8B0F /* AppDelegate.swift in Sources */,
+				88F25A92282E7C4400EE8B0F /* ImageManager.swift in Sources */,
 				88F25A6E282E6A7400EE8B0F /* SceneDelegate.swift in Sources */,
+				88F25A86282E732D00EE8B0F /* CryptoTableViewCell.swift in Sources */,
+				88F25A80282E6EE200EE8B0F /* MainViewController.swift in Sources */,
+				88F25A82282E6EFD00EE8B0F /* DetailCoinViewController.swift in Sources */,
+				88F25A94282E81A800EE8B0F /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +375,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H4375MA33;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CryptoTrackerV2/Info.plist;
+				INFOPLIST_FILE = "CryptoTrackerV2/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -319,7 +403,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H4375MA33;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CryptoTrackerV2/Info.plist;
+				INFOPLIST_FILE = "CryptoTrackerV2/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
