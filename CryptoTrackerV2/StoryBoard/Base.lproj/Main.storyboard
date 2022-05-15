@@ -224,10 +224,23 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YvG-4z-vvA">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="XR4-p1-cIK"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="star" catalog="system" id="XR4-p1-cIK">
+                            <connections>
+                                <action selector="favoritButtonPressed:" destination="1T2-Bt-V90" id="T0X-Ue-eow"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="coinNameLabel" destination="8Pq-ZK-KYi" id="QrE-At-OEl"/>
+                        <outlet property="coinPriceLabel" destination="zhj-uK-0eK" id="zvC-BG-0Do"/>
+                        <outlet property="curculatingSupplyLabel" destination="tUy-2e-yIA" id="WdQ-Pg-2Or"/>
+                        <outlet property="favoritButtonLabel" destination="XR4-p1-cIK" id="dKC-nr-daF"/>
+                        <outlet property="high24hLabel" destination="2Jz-sY-kFU" id="3Rp-9u-qOt"/>
+                        <outlet property="low24hLabel" destination="rHX-NJ-32N" id="m1p-TR-B4i"/>
+                        <outlet property="marketCapLabel" destination="rBs-DM-YDq" id="pro-3C-i7R"/>
+                        <outlet property="maxSupplyLabel" destination="A9u-4W-dlc" id="A0g-xt-3ZS"/>
                         <outlet property="maxSuppyLabel" destination="A9u-4W-dlc" id="jA3-zg-aP9"/>
+                        <outlet property="priceChange24hLabel" destination="QXc-ta-mNV" id="PtP-8Q-KIA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3WC-bR-nSb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
