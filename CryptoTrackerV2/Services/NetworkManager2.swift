@@ -7,9 +7,9 @@
 
 import Foundation
 
-class NetworkManager {
+class NetworkManager2 {
     
-    static let shared = NetworkManager()
+    static let shared = NetworkManager2()
     
     private let api = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     

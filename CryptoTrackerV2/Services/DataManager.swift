@@ -13,6 +13,8 @@ class DataManager {
     
     private let userDefaults = UserDefaults()
     
+    private var coins: [Coin] = []
+    
     private init() {}
     
     func setFavoriteStatus(for courseName: String, with status: Bool) {
@@ -22,4 +24,13 @@ class DataManager {
     func getFavoriteStatus(for courseName: String) -> Bool {
         userDefaults.bool(forKey: courseName)
     }
+    
+    func setCoin(coins: [Coin]) {
+        self.coins = coins
+    }
+    
+    func getCoin(at indexPath: IndexPath) -> Coin {
+        return coins[indexPath.row]
+    }
+    
 }
