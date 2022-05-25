@@ -21,28 +21,28 @@ protocol MainViewControllerOutputProtocol {
 class MainViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var activityIndecator: UIActivityIndicatorView!
     
     var modelCell: [CoinCellData] = []
     var presenter: MainViewControllerOutputProtocol!
     var mainViewControllerConfigurator: MainViewControllerConfiguratorInputConfigurator = MainViewControllerConfigurator()
     
-    var refrashControl: UIRefreshControl = {
-        let refrashControl = UIRefreshControl()
-        refrashControl.tintColor = .systemPink
-        refrashControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
-        return refrashControl
-    }()
+    var refrashControl = UIRefreshControl()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.refreshControl = refrashControl
+        setupRefrashControl()
         mainViewControllerConfigurator.configure(viewController: self)
         presenter.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
+    func setupRefrashControl() {
+        refrashControl.tintColor = .systemPink
+        tableView.refreshControl = refrashControl
+        refrashControl.beginRefreshing()
+        refrashControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
+    }
     
     @objc func refrashControlFunc() {
         presenter.viewDidLoad()
@@ -83,8 +83,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 extension MainViewController: MainViewControllerInputProtocol {
     func reloadData(modelCell: [CoinCellData]) {
         self.modelCell = modelCell
-        activityIndecator.stopAnimating()
-        activityIndecator.isHidden = true
         refrashControl.endRefreshing()
         DispatchQueue.main.async { [unowned self] in
             tableView.reloadData()

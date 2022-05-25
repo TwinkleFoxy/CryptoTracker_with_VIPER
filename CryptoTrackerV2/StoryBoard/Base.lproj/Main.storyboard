@@ -19,14 +19,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="t9A-5m-dKO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <activityIndicatorView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" id="Xd7-QC-CME">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                    <color key="color" systemColor="systemPinkColor"/>
-                                </activityIndicatorView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellMainController" rowHeight="70" id="kzm-hR-32E" userLabel="Cell" customClass="CryptoTableViewCell" customModule="CryptoTrackerV2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64.5" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kzm-hR-32E" id="ZdK-Jp-8eE">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -112,7 +107,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Crypto Tracker" id="53K-oZ-HyZ"/>
                     <connections>
-                        <outlet property="activityIndecator" destination="Xd7-QC-CME" id="B82-Cq-JII"/>
                         <outlet property="tableView" destination="t9A-5m-dKO" id="KKv-zb-zbh"/>
                         <segue destination="1T2-Bt-V90" kind="show" identifier="detailViewControllerSegue" id="ZbB-pq-3R1"/>
                     </connections>
@@ -295,9 +289,6 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
