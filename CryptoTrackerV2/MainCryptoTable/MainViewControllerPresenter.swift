@@ -19,7 +19,6 @@ class MainViewControllerPresenter: MainViewControllerOutputProtocol {
     unowned let view: MainViewControllerInputProtocol
     var router: MainViewControllerRouterInputProtocol!
     
-   // var modelCell: [CoinCellData] = []
     
     required init(view: MainViewControllerInputProtocol) {
         self.view = view

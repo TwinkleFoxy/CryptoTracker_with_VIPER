@@ -27,16 +27,26 @@ class MainViewController: UIViewController {
     var presenter: MainViewControllerOutputProtocol!
     var mainViewControllerConfigurator: MainViewControllerConfiguratorInputConfigurator = MainViewControllerConfigurator()
     
+    var refrashControl: UIRefreshControl = {
+        let refrashControl = UIRefreshControl()
+        refrashControl.tintColor = .systemPink
+        refrashControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
+        return refrashControl
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.refreshControl = refrashControl
         mainViewControllerConfigurator.configure(viewController: self)
         presenter.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
     
-    
+    @objc func refrashControlFunc() {
+        presenter.viewDidLoad()
+    }
 
     
 // MARK: - Navigation
@@ -75,7 +85,10 @@ extension MainViewController: MainViewControllerInputProtocol {
         self.modelCell = modelCell
         activityIndecator.stopAnimating()
         activityIndecator.isHidden = true
-        tableView.reloadData()
+        refrashControl.endRefreshing()
+        DispatchQueue.main.async { [unowned self] in
+            tableView.reloadData()
+        }
     }
     
     
