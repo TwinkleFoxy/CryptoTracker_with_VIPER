@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88746C05283E95A300F44D54 /* CryptoTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88746C04283E95A300F44D54 /* CryptoTableViewCellProtocol.swift */; };
 		88F25A6C282E6A7400EE8B0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A6B282E6A7400EE8B0F /* AppDelegate.swift */; };
 		88F25A6E282E6A7400EE8B0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F25A6D282E6A7400EE8B0F /* SceneDelegate.swift */; };
 		88F25A73282E6A7400EE8B0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88F25A71282E6A7400EE8B0F /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		88746C04283E95A300F44D54 /* CryptoTableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCellProtocol.swift; sourceTree = "<group>"; };
 		88F25A68282E6A7400EE8B0F /* CryptoTrackerV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoTrackerV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88F25A6B282E6A7400EE8B0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88F25A6D282E6A7400EE8B0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				88F25AD828365F4300EE8B0F /* CryptoTableViewCellPresenter.swift */,
 				88F25ADA28365F4D00EE8B0F /* CryptoTableViewCellInteractor.swift */,
 				88F25ADC28365F6500EE8B0F /* CryptoTableViewCellConfigurator.swift */,
+				88746C04283E95A300F44D54 /* CryptoTableViewCellProtocol.swift */,
 			);
 			path = CryptoTableViewCell;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				88F25A94282E81A800EE8B0F /* Coin.swift in Sources */,
 				88F25AE3283683C600EE8B0F /* MainViewControllerConfigurator.swift in Sources */,
 				88F25AD7283505D000EE8B0F /* DetailCoinConfigurator.swift in Sources */,
+				88746C05283E95A300F44D54 /* CryptoTableViewCellProtocol.swift in Sources */,
 				88F25AE52837E4BA00EE8B0F /* MainViewControllerRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

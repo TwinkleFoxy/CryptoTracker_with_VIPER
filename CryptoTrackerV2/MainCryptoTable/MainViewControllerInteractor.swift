@@ -14,7 +14,7 @@ protocol MainViewControllerInteractorInputProtocol {
 }
 
 protocol MainViewControllerInteractorOutputProtocol: AnyObject {
-    func coinsDidReceived(coins: [CoinCellData])
+    func coinsDidReceived(coins: [CryptoTableViewCellProtocol])
     func coinDidRecived(coin: Coin)
 }
 
@@ -27,8 +27,8 @@ class MainViewControllerInteractor: MainViewControllerInteractorInputProtocol {
     }
     
     
-    func getModelForCell(coins: [Coin], clouser: ([CoinCellData]) -> ()) {
-        var coinCellData: [CoinCellData] = []
+    func getModelForCell(coins: [Coin], clouser: ([CryptoTableViewCellProtocol]) -> ()) {
+        var coinCellData: [CryptoTableViewCellProtocol] = []
         DispatchQueue.global(qos: .userInteractive).sync {
             coins.forEach { coin in
                 let imageData = ImageManager.shared.fetchImageData(from: coin.image)

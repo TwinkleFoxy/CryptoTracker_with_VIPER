@@ -8,19 +8,19 @@
 import Foundation
 
 protocol CryptoTableViewCellInteractorInputProtocol  {
-    init(presenter: CryptoTableViewCellInteractorOutputProtocol, coin: CoinCellData)
+    init(presenter: CryptoTableViewCellInteractorOutputProtocol, coin: CryptoTableViewCellProtocol)
     func provideCoin()
 }
 
 protocol CryptoTableViewCellInteractorOutputProtocol: AnyObject {
-    func reciveCoin(coin: CoinCellData)
+    func reciveCoin(coin: CryptoTableViewCellProtocol)
 }
 
 class CryptoTableViewCellInteracor: CryptoTableViewCellInteractorInputProtocol {
     unowned let presenter: CryptoTableViewCellInteractorOutputProtocol
-    let coin: CoinCellData
+    let coin: CryptoTableViewCellProtocol
     
-    required init(presenter: CryptoTableViewCellInteractorOutputProtocol, coin: CoinCellData) {
+    required init(presenter: CryptoTableViewCellInteractorOutputProtocol, coin: CryptoTableViewCellProtocol) {
         self.presenter = presenter
         self.coin = coin
     }

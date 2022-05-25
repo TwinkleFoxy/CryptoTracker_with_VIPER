@@ -30,7 +30,7 @@ class CryptoTableViewCellPresenter: CryptoTableViewCellViewOutputProtocol {
 }
 
 extension CryptoTableViewCellPresenter: CryptoTableViewCellInteractorOutputProtocol {
-    func reciveCoin(coin: CoinCellData) {
+    func reciveCoin(coin: CryptoTableViewCellProtocol) {
         if let imageData = coin.imageCoin {
             view.displayImageCoin(data: imageData)
         }
