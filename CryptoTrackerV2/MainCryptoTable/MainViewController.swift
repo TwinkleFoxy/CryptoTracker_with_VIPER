@@ -19,47 +19,49 @@ protocol MainViewControllerOutputProtocol {
 
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var modelCell: [CryptoTableViewCellProtocol] = []
     var presenter: MainViewControllerOutputProtocol!
     var mainViewControllerConfigurator: MainViewControllerConfiguratorInputConfigurator = MainViewControllerConfigurator()
     
-    var refrashControl = UIRefreshControl()
+    var refrashControl: UIRefreshControl = {
+        let refrashControl = UIRefreshControl()
+        refrashControl.tintColor = .systemPink
+        refrashControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
+        return refrashControl
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupRefrashControl()
+        setupUI()
         mainViewControllerConfigurator.configure(viewController: self)
         presenter.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    func setupRefrashControl() {
-        refrashControl.tintColor = .systemPink
+    func setupUI() {
         tableView.refreshControl = refrashControl
         refrashControl.beginRefreshing()
-        refrashControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
     }
     
     @objc func refrashControlFunc() {
         presenter.viewDidLoad()
     }
-
     
-// MARK: - Navigation
+    
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let coin = sender as? Coin else { return }
         let dvc = segue.destination as! DetailCoinViewController
         let configurator: DetailCoinConfiguratorImputProtocol = DetailCoinConfigurator()
         configurator.congfigure(view: dvc, coin: coin)
-    }
-    
-
+    } 
 }
 
+//MARK: - UITableViewDataSource, UITableViewDelegate
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modelCell.count
@@ -76,10 +78,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.didTapOnCell(at: indexPath)
     }
-    
-    
 }
 
+//MARK: - MainViewControllerInputProtocol
 extension MainViewController: MainViewControllerInputProtocol {
     func reloadData(modelCell: [CryptoTableViewCellProtocol]) {
         self.modelCell = modelCell
@@ -88,6 +89,4 @@ extension MainViewController: MainViewControllerInputProtocol {
             tableView.reloadData()
         }
     }
-    
-    
 }

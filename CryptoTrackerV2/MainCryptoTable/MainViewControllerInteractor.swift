@@ -38,6 +38,7 @@ class MainViewControllerInteractor: MainViewControllerInteractorInputProtocol {
                                                  priceCoin: coin.current_price))
             }
         }
+        DataManager.shared.setViewModelCells(viewModelCell: coinCellData)
         clouser(coinCellData)
     }
     

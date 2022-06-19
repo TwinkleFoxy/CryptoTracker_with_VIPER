@@ -31,7 +31,7 @@ class NetworkManager2 {
                 DispatchQueue.main.async {
                     completion(courses)
                 }
-                DataManager.shared.setCoin(coins: courses)
+                DataManager.shared.setCoins(coins: courses)
             } catch let error {
                 print("Error serialization json", error)
             }
