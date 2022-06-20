@@ -16,6 +16,7 @@ class DataManager {
     private var coins: [Coin] = []
     private var viewModelCells: [CryptoTableViewCellProtocol] = []
     private var viewModelCellsFavorit: [CryptoTableViewCellProtocol] = []
+    private var filteredCells: [CryptoTableViewCellProtocol] = []
     
     private init() {}
     
@@ -66,6 +67,18 @@ class DataManager {
     
     func getViewModelFavoritCells(at indexPath: IndexPath) -> CryptoTableViewCellProtocol {
         return viewModelCellsFavorit[indexPath.row]
+    }
+    
+    func setFilteredCells(filteredCells: [CryptoTableViewCellProtocol]) {
+        self.filteredCells = filteredCells
+    }
+    
+    func getFilteredCells() -> [CryptoTableViewCellProtocol] {
+        return filteredCells
+    }
+    
+    func getFilteredCells(at indexPath: IndexPath) -> CryptoTableViewCellProtocol{
+        return filteredCells[indexPath.row]
     }
     
 }

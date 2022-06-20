@@ -24,23 +24,31 @@ class MainViewControllerPresenter: MainViewControllerOutputProtocol {
         self.view = view
     }
     
-    func viewDidLoad() {
+    func requestData() {
         interactor.fetchCoins()
     }
     
+    func updateData() {
+        interactor.refrashCoinData()
+    }
+    
+    func searchTextInput(searchText: String) {
+        interactor.searchCoins(searchText: searchText)
+    }
+    
     func didTapOnCell(at indexPath: IndexPath) {
-        interactor.getcoin(at: indexPath)
+        interactor.getCoin(at: indexPath)
     }
     
 }
 
 
 extension MainViewControllerPresenter: MainViewControllerInteractorOutputProtocol {
-    func coinsDidReceived(coins: [CryptoTableViewCellProtocol]) {
-        view.reloadData(modelCell: coins)
+    func coinsDidReceived(viewModelCell: [CryptoTableViewCellProtocol]) {
+        view.reloadData(modelCell: viewModelCell)
     }
     
-    func coinDidRecived(coin: Coin) {
+    func coinDidReceived(coin: Coin) {
         router.performDetailViewController(with: coin)
     }
 }

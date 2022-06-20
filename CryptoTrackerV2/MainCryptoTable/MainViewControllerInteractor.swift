@@ -10,24 +10,28 @@ import Foundation
 protocol MainViewControllerInteractorInputProtocol {
     init(presenter: MainViewControllerInteractorOutputProtocol)
     func fetchCoins()
-    func getcoin(at indexPath: IndexPath)
+    func refrashCoinData()
+    func getCoin(at indexPath: IndexPath)
+    func searchCoins(searchText: String)
 }
 
 protocol MainViewControllerInteractorOutputProtocol: AnyObject {
-    func coinsDidReceived(coins: [CryptoTableViewCellProtocol])
-    func coinDidRecived(coin: Coin)
+    func coinsDidReceived(viewModelCell: [CryptoTableViewCellProtocol])
+    func coinDidReceived(coin: Coin)
 }
 
 
 class MainViewControllerInteractor: MainViewControllerInteractorInputProtocol {
+    
     unowned var presenter: MainViewControllerInteractorOutputProtocol
+    private var isFilteringCoins = false
     
     required init(presenter: MainViewControllerInteractorOutputProtocol) {
         self.presenter = presenter
     }
     
     
-    func getModelForCell(coins: [Coin], clouser: ([CryptoTableViewCellProtocol]) -> ()) {
+    func getModelForCellHelper(coins: [Coin], clouser: ([CryptoTableViewCellProtocol]) -> ()) {
         var coinCellData: [CryptoTableViewCellProtocol] = []
         DispatchQueue.global(qos: .userInteractive).sync {
             coins.forEach { coin in
@@ -38,22 +42,53 @@ class MainViewControllerInteractor: MainViewControllerInteractorInputProtocol {
                                                  priceCoin: coin.current_price))
             }
         }
-        DataManager.shared.setViewModelCells(viewModelCell: coinCellData)
         clouser(coinCellData)
     }
     
-    
-    func fetchCoins() {
-        NetworkManager.shared.fetchData {[unowned self] coins in
-            getModelForCell(coins: coins) { coinCellData in
-                presenter.coinsDidReceived(coins: coinCellData)
+    func refrashCoinData() {
+        NetworkManager.shared.fetchData { [unowned self] coins in
+            getModelForCellHelper(coins: coins) { viewModelCell in
+                DataManager.shared.setViewModelCells(viewModelCell: viewModelCell)
+                presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelCells())
             }
         }
     }
     
-    func getcoin(at indexPath: IndexPath) {
-        presenter.coinDidRecived(coin: DataManager.shared.getCoin(at: indexPath))
+    func fetchCoins() {
+        // Check cashed date viewCells
+        let viewModelCells = DataManager.shared.getViewModelCells()
+        if viewModelCells.isEmpty{
+            refrashCoinData()
+        } else {
+            presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelCells())
+        }
     }
     
+    func getCoin(at indexPath: IndexPath) {
+        if isFilteringCoins {
+            let coinName = DataManager.shared.getFilteredCells(at: indexPath).nameCoin
+            guard let coin = DataManager.shared.getCoin(by: coinName) else { return }
+            presenter.coinDidReceived(coin: coin)
+            
+        } else {
+            let coin = DataManager.shared.getCoin(at: indexPath)
+            presenter.coinDidReceived(coin: coin)
+        }
+    }
+    
+    func searchCoins(searchText: String) {
+        isFilteringCoins = searchText.isEmpty ? false : true
+        
+        if isFilteringCoins {
+            let viewModelCells = DataManager.shared.getViewModelCells()
+            let filteredCells = viewModelCells.filter { coinCell in
+                coinCell.nameCoin.lowercased().contains(searchText.lowercased())
+            }
+            DataManager.shared.setFilteredCells(filteredCells: filteredCells)
+            presenter.coinsDidReceived(viewModelCell: filteredCells)
+        } else {
+            presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelCells())
+        }
+    }
 }
 

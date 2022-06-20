@@ -13,8 +13,10 @@ protocol MainViewControllerInputProtocol: AnyObject {
 
 protocol MainViewControllerOutputProtocol {
     init(view: MainViewControllerInputProtocol)
-    func viewDidLoad()
+    func requestData()
+    func updateData()
     func didTapOnCell(at indexPath: IndexPath)
+    func searchTextInput(searchText: String)
 }
 
 
@@ -34,25 +36,36 @@ class MainViewController: UIViewController {
     }()
     
     
+    let searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.definesPresentationContext = true
+        return searchController
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         mainViewControllerConfigurator.configure(viewController: self)
-        presenter.viewDidLoad()
+        presenter.requestData()
         // Do any additional setup after loading the view.
     }
     
     func setupUI() {
         tableView.refreshControl = refrashControl
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchResultsUpdater = self
         refrashControl.beginRefreshing()
     }
     
     @objc func refrashControlFunc() {
-        presenter.viewDidLoad()
+        presenter.updateData()
     }
     
     
-    // MARK: - Navigation
+// MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let coin = sender as? Coin else { return }
         let dvc = segue.destination as! DetailCoinViewController
@@ -88,5 +101,13 @@ extension MainViewController: MainViewControllerInputProtocol {
         DispatchQueue.main.async { [unowned self] in
             tableView.reloadData()
         }
+    }
+}
+
+//MARK: - UISearchResultsUpdating
+extension MainViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        presenter.searchTextInput(searchText: searchText)
     }
 }

@@ -9,7 +9,6 @@ import Foundation
 
 protocol FavoritCoinInteractorInputProtocol {
     init(presenter: FavoritCoinInteractorOutputProtocol)
-    var isFilteringCoins: Bool { get }
     func fetchCoins()
     func refrashCoinData()
     func getCoin(at indexPath: IndexPath)
@@ -24,8 +23,7 @@ protocol FavoritCoinInteractorOutputProtocol: AnyObject {
 class FavoritCoinInteractor: FavoritCoinInteractorInputProtocol {
     
     unowned var presenter: FavoritCoinInteractorOutputProtocol
-    var isFilteringCoins = false
-    var filteredCells: [CryptoTableViewCellProtocol] = []
+    private var isFilteringCoins = false
     
     required init(presenter: FavoritCoinInteractorOutputProtocol) {
         self.presenter = presenter
@@ -68,7 +66,7 @@ class FavoritCoinInteractor: FavoritCoinInteractorInputProtocol {
     
     func getCoin(at indexPath: IndexPath) {
         if isFilteringCoins {
-            let coinName = filteredCells[indexPath.row].nameCoin
+            let coinName = DataManager.shared.getFilteredCells(at: indexPath).nameCoin
             guard let coin = DataManager.shared.getCoin(by: coinName) else { return }
             presenter.coinDidReceived(coin: coin)
             
@@ -84,13 +82,13 @@ class FavoritCoinInteractor: FavoritCoinInteractorInputProtocol {
         
         if isFilteringCoins {
             let viewModelCells = DataManager.shared.getViewModelFavoritCells()
-            filteredCells = viewModelCells.filter { coinCell in
+            let filteredCells = viewModelCells.filter { coinCell in
                 coinCell.nameCoin.lowercased().contains(searchText.lowercased())
             }
+            DataManager.shared.setFilteredCells(filteredCells: filteredCells)
             presenter.coinsDidReceived(viewModelCell: filteredCells)
         } else {
             presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelFavoritCells())
         }
-        
     }
 }

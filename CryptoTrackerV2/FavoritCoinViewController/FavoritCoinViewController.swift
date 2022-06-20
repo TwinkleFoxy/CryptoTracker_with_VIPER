@@ -30,7 +30,6 @@ class FavoritCoinViewController: UIViewController {
     let refrashControl: UIRefreshControl = {
         let refrashControl = UIRefreshControl()
         refrashControl.tintColor = .systemPink
-        
         return refrashControl
     }()
     
