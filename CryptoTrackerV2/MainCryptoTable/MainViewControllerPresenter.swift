@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CoinCellData: CryptoTableViewCellProtocol {
-    var imageCoin: Data?
+struct CoinCellMainData: CryptoTableViewCellInputProtocol {
+    var imageCoinURL: URL
     var nameCoin: String
     var priceChangePercentage24h: Double
     var priceCoin: Double
@@ -44,7 +44,7 @@ class MainViewControllerPresenter: MainViewControllerOutputProtocol {
 
 
 extension MainViewControllerPresenter: MainViewControllerInteractorOutputProtocol {
-    func coinsDidReceived(viewModelCell: [CryptoTableViewCellProtocol]) {
+    func coinsDidReceived(viewModelCell: [CryptoTableViewCellInputProtocol]) {
         view.reloadData(modelCell: viewModelCell)
     }
     

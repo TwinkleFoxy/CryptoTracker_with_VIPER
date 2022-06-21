@@ -14,9 +14,9 @@ class DataManager {
     private let userDefaults = UserDefaults()
     
     private var coins: [Coin] = []
-    private var viewModelCells: [CryptoTableViewCellProtocol] = []
-    private var viewModelCellsFavorit: [CryptoTableViewCellProtocol] = []
-    private var filteredCells: [CryptoTableViewCellProtocol] = []
+    private var viewModelCells: [CryptoTableViewCellInputProtocol] = []
+    private var viewModelCellsFavorit: [CryptoTableViewCellInputProtocol] = []
+    private var filteredCells: [CryptoTableViewCellInputProtocol] = []
     
     private init() {}
     
@@ -43,12 +43,12 @@ class DataManager {
         }.first
     }
     
-    func setViewModelCells(viewModelCell: [CryptoTableViewCellProtocol]) {
+    func setViewModelCells(viewModelCell: [CryptoTableViewCellInputProtocol]) {
         viewModelCells.removeAll()
         self.viewModelCells = viewModelCell
     }
     
-    func getViewModelCells() -> [CryptoTableViewCellProtocol] {
+    func getViewModelCells() -> [CryptoTableViewCellInputProtocol] {
         return viewModelCells
     }
     
@@ -61,23 +61,23 @@ class DataManager {
         })
     }
     
-    func getViewModelFavoritCells() -> [CryptoTableViewCellProtocol] {
+    func getViewModelFavoritCells() -> [CryptoTableViewCellInputProtocol] {
         return viewModelCellsFavorit
     }
     
-    func getViewModelFavoritCells(at indexPath: IndexPath) -> CryptoTableViewCellProtocol {
+    func getViewModelFavoritCells(at indexPath: IndexPath) -> CryptoTableViewCellInputProtocol {
         return viewModelCellsFavorit[indexPath.row]
     }
     
-    func setFilteredCells(filteredCells: [CryptoTableViewCellProtocol]) {
+    func setFilteredCells(filteredCells: [CryptoTableViewCellInputProtocol]) {
         self.filteredCells = filteredCells
     }
     
-    func getFilteredCells() -> [CryptoTableViewCellProtocol] {
+    func getFilteredCells() -> [CryptoTableViewCellInputProtocol] {
         return filteredCells
     }
     
-    func getFilteredCells(at indexPath: IndexPath) -> CryptoTableViewCellProtocol{
+    func getFilteredCells(at indexPath: IndexPath) -> CryptoTableViewCellInputProtocol{
         return filteredCells[indexPath.row]
     }
     

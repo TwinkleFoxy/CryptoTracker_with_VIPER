@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainViewControllerInputProtocol: AnyObject {
-    func reloadData(modelCell: [CryptoTableViewCellProtocol])
+    func reloadData(modelCell: [CryptoTableViewCellInputProtocol])
 }
 
 protocol MainViewControllerOutputProtocol {
@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var modelCell: [CryptoTableViewCellProtocol] = []
+    var modelCell: [CryptoTableViewCellInputProtocol] = []
     var presenter: MainViewControllerOutputProtocol!
     var mainViewControllerConfigurator: MainViewControllerConfiguratorInputConfigurator = MainViewControllerConfigurator()
     
@@ -49,7 +49,6 @@ class MainViewController: UIViewController {
         setupUI()
         mainViewControllerConfigurator.configure(viewController: self)
         presenter.requestData()
-        // Do any additional setup after loading the view.
     }
     
     func setupUI() {
@@ -95,7 +94,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: - MainViewControllerInputProtocol
 extension MainViewController: MainViewControllerInputProtocol {
-    func reloadData(modelCell: [CryptoTableViewCellProtocol]) {
+    func reloadData(modelCell: [CryptoTableViewCellInputProtocol]) {
         self.modelCell = modelCell
         refrashControl.endRefreshing()
         DispatchQueue.main.async { [unowned self] in

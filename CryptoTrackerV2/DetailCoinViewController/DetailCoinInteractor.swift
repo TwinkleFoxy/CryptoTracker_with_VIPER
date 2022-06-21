@@ -11,6 +11,7 @@ protocol DetailCoinInteractorInputProtocol {
     init(presenter: DetailCoinInteractorOutputProtocol, coin: Coin)
     var isFavorit: Bool { get set }
     func provideData()
+    func requestFavouritStatus()
     func toggleFavoriteStatus()
 }
 
@@ -48,6 +49,10 @@ class DetailCoinInteractor: DetailCoinInteractorInputProtocol{
                             low24h: coin.low_24h,
                             priceChange24h: coin.price_change_24h,
                             isFavorit: isFavorit))
+    }
+    
+    func requestFavouritStatus() {
+        presenter.reciveFavoritStatus(status: isFavorit)
     }
     
     func toggleFavoriteStatus() {

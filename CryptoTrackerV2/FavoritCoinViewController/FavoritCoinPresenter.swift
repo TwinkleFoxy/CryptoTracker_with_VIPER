@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CoinCellFavoritData: CryptoTableViewCellProtocol {
-    var imageCoin: Data?
+struct CoinCellFavoritData: CryptoTableViewCellInputProtocol {
+    var imageCoinURL: URL
     var nameCoin: String
     var priceChangePercentage24h: Double
     var priceCoin: Double
@@ -36,14 +36,14 @@ class FavoritCoinPresenter: FavoritCoinViewControllerOutputProtocol {
         interactor.searchCoins(searchText: searchText)
     }
     
-    func updateData() {
+    func reloadData() {
         interactor.refrashCoinData()
     }
 }
 
 extension FavoritCoinPresenter: FavoritCoinInteractorOutputProtocol {
     
-    func coinsDidReceived(viewModelCell: [CryptoTableViewCellProtocol]) {
+    func coinsDidReceived(viewModelCell: [CryptoTableViewCellInputProtocol]) {
         view.reloadData(modelCell: viewModelCell)
     }
     

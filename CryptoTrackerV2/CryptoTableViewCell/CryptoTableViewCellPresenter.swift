@@ -7,12 +7,12 @@
 
 import Foundation
 
-//struct CoinCellData {
-//    var imageCoin: Data?
-//    var nameCoin: String
-//    var priceChangePercentage24h: Double
-//    var priceCoin: Double
-//}
+struct CoinCellData: CryptoTableViewCellInternalProtocol {
+    var imageCoinData: Data?
+    var nameCoin: String
+    var priceChangePercentage24h: Double
+    var priceCoin: Double
+}
 
 
 class CryptoTableViewCellPresenter: CryptoTableViewCellViewOutputProtocol {
@@ -30,8 +30,8 @@ class CryptoTableViewCellPresenter: CryptoTableViewCellViewOutputProtocol {
 }
 
 extension CryptoTableViewCellPresenter: CryptoTableViewCellInteractorOutputProtocol {
-    func reciveCoin(coin: CryptoTableViewCellProtocol) {
-        if let imageData = coin.imageCoin {
+    func reciveCoin(coin: CryptoTableViewCellInternalProtocol) {
+        if let imageData = coin.imageCoinData {
             view.displayImageCoin(data: imageData)
         }
         view.displayNameCoin(title: coin.nameCoin)

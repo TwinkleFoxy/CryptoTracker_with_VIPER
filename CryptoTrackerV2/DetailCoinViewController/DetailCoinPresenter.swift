@@ -34,25 +34,29 @@ class DetailCoinPresenter: DetailCoinViewControllerOutputProtocol {
     func favoritButtonPressed() {
         interactor.toggleFavoriteStatus()
     }
+    
+    func refrashFavouriteStatus() {
+        interactor.requestFavouritStatus()
+    }
 }
 
 extension DetailCoinPresenter: DetailCoinInteractorOutputProtocol {
     func receiveCoinDetails(coiDetailsData: CoinDetailsData) {
-        view.displayCoinName(title: coiDetailsData.coinName)
-        view.displayCoinPrice(title: "\(coiDetailsData.coinPrice)")
-        view.displayMarketCap(title: "\(coiDetailsData.marketCap)")
+        view.displayCoinName(title: "Name: \(coiDetailsData.coinName)")
+        view.displayCoinPrice(title: "Price: \(coiDetailsData.coinPrice) $")
+        view.displayMarketCap(title: "MarketCap: \(coiDetailsData.marketCap) $")
         
         if let curculatingSupply = coiDetailsData.curculatingSupply {
-            view.displayCurculatingSupply(title: "\(curculatingSupply) ")
-        } else { view.displayCurculatingSupply(title: "No Data") }
+            view.displayCurculatingSupply(title: "Curc Supply: \(curculatingSupply)")
+        } else { view.displayCurculatingSupply(title: "Curc. Supply: No Data") }
         
         if let maxSupply = coiDetailsData.maxSupply {
-            view.displayMaxSupply(title: "\(maxSupply)")
-        } else { view.displayMaxSupply(title: "No Data") }
+            view.displayMaxSupply(title: "Max Supply: \(maxSupply)")
+        } else { view.displayMaxSupply(title: "Max Supply: No Data") }
         
-        view.displayHigh24h(title: "\(coiDetailsData.high24h)")
-        view.displayLow24h(title: "\(coiDetailsData.low24h)")
-        view.displayPriceChange24h(title: "\(coiDetailsData.priceChange24h)")
+        view.displayHigh24h(title: "High 24h: \(coiDetailsData.high24h) $")
+        view.displayLow24h(title: "Low 24h: \(coiDetailsData.low24h) $")
+        view.displayPriceChange24h(title: "Price Change 24h: \(coiDetailsData.priceChange24h) %")
         view.displayFavoritStatus(status: coiDetailsData.isFavorit)
     }
     

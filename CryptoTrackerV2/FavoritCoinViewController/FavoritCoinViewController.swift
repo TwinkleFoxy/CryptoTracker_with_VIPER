@@ -8,13 +8,13 @@
 import UIKit
 
 protocol FavoritCoinViewControllerInputProtocol: AnyObject {
-    func reloadData(modelCell: [CryptoTableViewCellProtocol])
+    func reloadData(modelCell: [CryptoTableViewCellInputProtocol])
 }
 
 protocol FavoritCoinViewControllerOutputProtocol {
     init(view: FavoritCoinViewControllerInputProtocol)
     func requestData()
-    func updateData()
+    func reloadData()
     func didTapOnCell(at indexPath: IndexPath)
     func searchTextInput(searchText: String)
 }
@@ -24,7 +24,7 @@ class FavoritCoinViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: FavoritCoinViewControllerOutputProtocol!
-    var cellModel: [CryptoTableViewCellProtocol] = []
+    var cellModel: [CryptoTableViewCellInputProtocol] = []
     var favoritCoinViewControllerConfigurator: FavoritCoinConfiguratorInputProtocol = FavoritCoinConfigurator()
     
     let refrashControl: UIRefreshControl = {
@@ -43,9 +43,12 @@ class FavoritCoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        presenter.requestData()
+//        presenter.requestData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.requestData()
+    }
     
     func setupUI() {
         favoritCoinViewControllerConfigurator.configure(viewController: self)
@@ -59,7 +62,7 @@ class FavoritCoinViewController: UIViewController {
     
     //MARK: - UIRefreshControl func
     @objc func updateDataRefrashControl() {
-        presenter.updateData()
+        presenter.reloadData()
     }
     
     
@@ -94,7 +97,7 @@ extension FavoritCoinViewController: UITableViewDataSource, UITableViewDelegate 
 
 //MARK: - FavoritCoinViewControllerInputProtocol
 extension FavoritCoinViewController: FavoritCoinViewControllerInputProtocol {
-    func reloadData(modelCell: [CryptoTableViewCellProtocol]) {
+    func reloadData(modelCell: [CryptoTableViewCellInputProtocol]) {
         self.cellModel = modelCell
         tableView.reloadData()
         refrashControl.endRefreshing()

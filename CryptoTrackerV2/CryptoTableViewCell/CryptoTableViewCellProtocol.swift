@@ -7,8 +7,17 @@
 
 import Foundation
 
-protocol CryptoTableViewCellProtocol {
-    var imageCoin: Data? { get }
+// Cell Data Receive Protocol
+protocol CryptoTableViewCellInputProtocol {
+    var imageCoinURL: URL { get }
+    var nameCoin: String { get }
+    var priceChangePercentage24h: Double { get }
+    var priceCoin: Double { get }
+}
+
+// Cell Data Presentation Protocol
+protocol CryptoTableViewCellInternalProtocol {
+    var imageCoinData: Data? { get }
     var nameCoin: String { get }
     var priceChangePercentage24h: Double { get }
     var priceCoin: Double { get }

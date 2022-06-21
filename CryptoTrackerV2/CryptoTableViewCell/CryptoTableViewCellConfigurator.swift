@@ -8,11 +8,11 @@
 import Foundation
 
 protocol CryptoTableViewCellConfiguratorInputProtocol {
-    func configure(view: CryptoTableViewCell, coin: CryptoTableViewCellProtocol)
+    func configure(view: CryptoTableViewCell, coin: CryptoTableViewCellInputProtocol)
 }
 
 class CryptoTableViewCellConfigurator: CryptoTableViewCellConfiguratorInputProtocol {
-    func configure(view: CryptoTableViewCell, coin: CryptoTableViewCellProtocol) {
+    func configure(view: CryptoTableViewCell, coin: CryptoTableViewCellInputProtocol) {
         let presenter = CryptoTableViewCellPresenter(view: view)
         let interactor = CryptoTableViewCellInteracor(presenter: presenter, coin: coin)
         

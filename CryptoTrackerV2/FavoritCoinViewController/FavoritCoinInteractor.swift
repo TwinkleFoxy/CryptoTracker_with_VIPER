@@ -16,7 +16,7 @@ protocol FavoritCoinInteractorInputProtocol {
 }
 
 protocol FavoritCoinInteractorOutputProtocol: AnyObject {
-    func coinsDidReceived(viewModelCell: [CryptoTableViewCellProtocol])
+    func coinsDidReceived(viewModelCell: [CryptoTableViewCellInputProtocol])
     func coinDidReceived(coin: Coin)
 }
 
@@ -29,12 +29,11 @@ class FavoritCoinInteractor: FavoritCoinInteractorInputProtocol {
         self.presenter = presenter
     }
     
-    func getModelForCellHelper(coins: [Coin], clouser: ([CryptoTableViewCellProtocol]) -> ()) {
-        var coinCellData: [CryptoTableViewCellProtocol] = []
+    func getModelForCellHelper(coins: [Coin], clouser: ([CryptoTableViewCellInputProtocol]) -> ()) {
+        var coinCellData: [CryptoTableViewCellInputProtocol] = []
         DispatchQueue.global(qos: .userInteractive).sync {
             coins.forEach { coin in
-                let imageData = ImageManager.shared.fetchImageData(from: coin.image)
-                coinCellData.append(CoinCellFavoritData(imageCoin: imageData,
+                coinCellData.append(CoinCellFavoritData(imageCoinURL: coin.image,
                                                  nameCoin: coin.name,
                                                  priceChangePercentage24h: coin.price_change_percentage_24h,
                                                  priceCoin: coin.current_price))
@@ -55,12 +54,14 @@ class FavoritCoinInteractor: FavoritCoinInteractorInputProtocol {
     
     func fetchCoins() {
         // Check cashed date viewCells
-        let viewModelCells = DataManager.shared.getViewModelCells()
-        if viewModelCells.isEmpty{
-            refrashCoinData()
-        } else {
-            DataManager.shared.setViewModelFavoritCells()
-            presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelFavoritCells())
+        DispatchQueue.main.async { [unowned self] in
+            let viewModelCells = DataManager.shared.getViewModelCells()
+            if viewModelCells.isEmpty{
+                refrashCoinData()
+            } else {
+                DataManager.shared.setViewModelFavoritCells()
+                presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelFavoritCells())
+            }
         }
     }
     
@@ -79,7 +80,7 @@ class FavoritCoinInteractor: FavoritCoinInteractorInputProtocol {
     
     func searchCoins(searchText: String) {
         isFilteringCoins = searchText.isEmpty ? false : true
-        
+
         if isFilteringCoins {
             let viewModelCells = DataManager.shared.getViewModelFavoritCells()
             let filteredCells = viewModelCells.filter { coinCell in

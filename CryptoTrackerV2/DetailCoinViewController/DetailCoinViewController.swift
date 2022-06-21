@@ -23,6 +23,7 @@ protocol DetailCoinViewControllerOutputProtocol: AnyObject {
     init(view: DetailCoinViewControllerInputProtocol)
     func showDetails()
     func favoritButtonPressed()
+    func refrashFavouriteStatus()
 }
 
 
@@ -44,6 +45,10 @@ class DetailCoinViewController: UIViewController {
         super.viewDidLoad()
         presenter.showDetails()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.refrashFavouriteStatus()
     }
     
     @IBAction func favoritButtonPressed(_ sender: UIBarButtonItem) {
