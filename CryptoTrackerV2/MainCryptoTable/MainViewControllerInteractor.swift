@@ -65,7 +65,7 @@ class MainViewControllerInteractor: MainViewControllerInteractorInputProtocol {
     
     func getCoin(at indexPath: IndexPath) {
         if isFilteringCoins {
-            let coinName = DataManager.shared.getFilteredCells(at: indexPath).nameCoin
+            let coinName = DataManager.shared.getViewModelFilteredCell(at: indexPath).nameCoin
             guard let coin = DataManager.shared.getCoin(by: coinName) else { return }
             presenter.coinDidReceived(coin: coin)
             
@@ -83,7 +83,7 @@ class MainViewControllerInteractor: MainViewControllerInteractorInputProtocol {
             let filteredCells = viewModelCells.filter { coinCell in
                 coinCell.nameCoin.lowercased().contains(searchText.lowercased())
             }
-            DataManager.shared.setFilteredCells(filteredCells: filteredCells)
+            DataManager.shared.setViewModelFilteredCells(filteredCells: filteredCells)
             presenter.coinsDidReceived(viewModelCell: filteredCells)
         } else {
             presenter.coinsDidReceived(viewModelCell: DataManager.shared.getViewModelCells())

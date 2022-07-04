@@ -27,10 +27,10 @@ class FavoritCoinViewController: UIViewController {
     var cellModel: [CryptoTableViewCellInputProtocol] = []
     var favoritCoinViewControllerConfigurator: FavoritCoinConfiguratorInputProtocol = FavoritCoinConfigurator()
     
-    let refrashControl: UIRefreshControl = {
-        let refrashControl = UIRefreshControl()
-        refrashControl.tintColor = .systemPink
-        return refrashControl
+    let refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .systemPink
+        return refreshControl
     }()
     
     let searchController: UISearchController = {
@@ -43,21 +43,23 @@ class FavoritCoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-//        presenter.requestData()
+        //        presenter.requestData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.requestData()
+        DispatchQueue.main.async { [unowned self] in
+            presenter.requestData()
+        }
     }
     
     func setupUI() {
         favoritCoinViewControllerConfigurator.configure(viewController: self)
-        tableView.refreshControl = refrashControl
-        refrashControl.beginRefreshing()
+        tableView.refreshControl = refreshControl
+        refreshControl.beginRefreshing()
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        refrashControl.addTarget(self, action: #selector(updateDataRefrashControl), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(updateDataRefrashControl), for: .valueChanged)
     }
     
     //MARK: - UIRefreshControl func
@@ -100,7 +102,7 @@ extension FavoritCoinViewController: FavoritCoinViewControllerInputProtocol {
     func reloadData(modelCell: [CryptoTableViewCellInputProtocol]) {
         self.cellModel = modelCell
         tableView.reloadData()
-        refrashControl.endRefreshing()
+        refreshControl.endRefreshing()
     }
 }
 

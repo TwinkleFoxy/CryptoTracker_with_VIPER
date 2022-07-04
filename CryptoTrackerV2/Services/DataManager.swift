@@ -15,11 +15,13 @@ class DataManager {
     
     private var coins: [Coin] = []
     private var viewModelCells: [CryptoTableViewCellInputProtocol] = []
-    private var viewModelCellsFavorit: [CryptoTableViewCellInputProtocol] = []
+    private var viewModelCellsFavourite: [CryptoTableViewCellInputProtocol] = []
     private var filteredCells: [CryptoTableViewCellInputProtocol] = []
     
     private init() {}
     
+    
+    // MARK: - Change favourite status
     func setFavoriteStatus(for courseName: String, with status: Bool) {
         userDefaults.set(status, forKey: courseName)
     }
@@ -28,6 +30,8 @@ class DataManager {
         userDefaults.bool(forKey: courseName)
     }
     
+    
+    // MARK: - Work with coin
     func setCoins(coins: [Coin]) {
         self.coins.removeAll()
         self.coins = coins
@@ -43,6 +47,8 @@ class DataManager {
         }.first
     }
     
+    
+    // MARK: - Work with viewModel cells
     func setViewModelCells(viewModelCell: [CryptoTableViewCellInputProtocol]) {
         viewModelCells.removeAll()
         self.viewModelCells = viewModelCell
@@ -52,32 +58,36 @@ class DataManager {
         return viewModelCells
     }
     
-    func setViewModelFavoritCells() {
-        viewModelCellsFavorit.removeAll()
+    
+    // MARK: - Work with viewModel Favoruite cells
+    func setViewModelFavoruiteCells() {
+        viewModelCellsFavourite.removeAll()
         viewModelCells.forEach({ viewModelCell in
             if DataManager.shared.getFavoriteStatus(for: viewModelCell.nameCoin) {
-                viewModelCellsFavorit.append(viewModelCell)
+                viewModelCellsFavourite.append(viewModelCell)
             }
         })
     }
     
-    func getViewModelFavoritCells() -> [CryptoTableViewCellInputProtocol] {
-        return viewModelCellsFavorit
+    func getViewModelFavoruiteCells() -> [CryptoTableViewCellInputProtocol] {
+        return viewModelCellsFavourite
     }
     
-    func getViewModelFavoritCells(at indexPath: IndexPath) -> CryptoTableViewCellInputProtocol {
-        return viewModelCellsFavorit[indexPath.row]
+    func getViewModelFavoruiteCells(at indexPath: IndexPath) -> CryptoTableViewCellInputProtocol {
+        return viewModelCellsFavourite[indexPath.row]
     }
     
-    func setFilteredCells(filteredCells: [CryptoTableViewCellInputProtocol]) {
+    
+    // MARK: - Work with viewModel filtered cells
+    func setViewModelFilteredCells(filteredCells: [CryptoTableViewCellInputProtocol]) {
         self.filteredCells = filteredCells
     }
     
-    func getFilteredCells() -> [CryptoTableViewCellInputProtocol] {
+    func getViewModelFilteredCells() -> [CryptoTableViewCellInputProtocol] {
         return filteredCells
     }
     
-    func getFilteredCells(at indexPath: IndexPath) -> CryptoTableViewCellInputProtocol{
+    func getViewModelFilteredCell(at indexPath: IndexPath) -> CryptoTableViewCellInputProtocol{
         return filteredCells[indexPath.row]
     }
     

@@ -28,11 +28,10 @@ class MainViewController: UIViewController {
     var presenter: MainViewControllerOutputProtocol!
     var mainViewControllerConfigurator: MainViewControllerConfiguratorInputConfigurator = MainViewControllerConfigurator()
     
-    var refrashControl: UIRefreshControl = {
-        let refrashControl = UIRefreshControl()
-        refrashControl.tintColor = .systemPink
-        refrashControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
-        return refrashControl
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .systemPink
+        return refreshControl
     }()
     
     
@@ -52,11 +51,12 @@ class MainViewController: UIViewController {
     }
     
     func setupUI() {
-        tableView.refreshControl = refrashControl
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchResultsUpdater = self
-        refrashControl.beginRefreshing()
+        refreshControl.beginRefreshing()
     }
     
     @objc func refrashControlFunc() {
@@ -96,7 +96,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 extension MainViewController: MainViewControllerInputProtocol {
     func reloadData(modelCell: [CryptoTableViewCellInputProtocol]) {
         self.modelCell = modelCell
-        refrashControl.endRefreshing()
+        refreshControl.endRefreshing()
         DispatchQueue.main.async { [unowned self] in
             tableView.reloadData()
         }
