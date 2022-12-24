@@ -1,39 +1,37 @@
 //
-//  MainViewController.swift
+//  FavoritCoinViewController.swift
 //  CryptoTrackerV2
 //
-//  Created by Алексей Однолько on 13.05.2022.
+//  Created by Алексей Однолько on 17.06.2022.
 //
 
 import UIKit
 
-protocol MainViewControllerInputProtocol: AnyObject {
+protocol FavoritCoinViewControllerInputProtocol: AnyObject {
     func reloadData(modelCell: [CryptoTableViewCellInputProtocol])
 }
 
-protocol MainViewControllerOutputProtocol {
-    init(view: MainViewControllerInputProtocol)
+protocol FavoritCoinViewControllerOutputProtocol {
+    init(view: FavoritCoinViewControllerInputProtocol)
     func requestData()
-    func updateData()
+    func reloadData()
     func didTapOnCell(at indexPath: IndexPath)
     func searchTextInput(searchText: String)
 }
 
-
-class MainViewController: UIViewController {
+class FavoritCoinViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var modelCell: [CryptoTableViewCellInputProtocol] = []
-    var presenter: MainViewControllerOutputProtocol!
-    var mainViewControllerConfigurator: MainViewControllerConfiguratorInputConfigurator = MainViewControllerConfigurator()
+    var presenter: FavoritCoinViewControllerOutputProtocol!
+    var cellModel: [CryptoTableViewCellInputProtocol] = []
+    var favoritCoinViewControllerConfigurator: FavoritCoinConfiguratorInputProtocol = FavoritCoinConfigurator()
     
-    var refreshControl: UIRefreshControl = {
+    let refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemPink
         return refreshControl
     }()
-    
     
     let searchController: UISearchController = {
         let searchController = UISearchController()
@@ -42,46 +40,52 @@ class MainViewController: UIViewController {
         return searchController
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        mainViewControllerConfigurator.configure(viewController: self)
-        presenter.requestData()
+        //        presenter.requestData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async { [unowned self] in
+            presenter.requestData()
+        }
     }
     
     func setupUI() {
+        favoritCoinViewControllerConfigurator.configure(viewController: self)
         tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(refrashControlFunc), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchResultsUpdater = self
-        refreshControl.beginRefreshing()
+        refreshControl.addTarget(self, action: #selector(updateDataRefrashControl), for: .valueChanged)
     }
     
-    @objc func refrashControlFunc() {
-        presenter.updateData()
+    //MARK: - UIRefreshControl func
+    @objc func updateDataRefrashControl() {
+        presenter.reloadData()
     }
     
     
-// MARK: - Navigation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let dvc = segue.destination as? DetailCoinViewController else { return }
         guard let coin = sender as? Coin else { return }
-        let dvc = segue.destination as! DetailCoinViewController
-        let configurator: DetailCoinConfiguratorImputProtocol = DetailCoinConfigurator()
-        configurator.congfigure(view: dvc, coin: coin)
-    } 
+        DetailCoinConfigurator().congfigure(view: dvc, coin: coin)
+    }
 }
 
+
 //MARK: - UITableViewDataSource, UITableViewDelegate
-extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+extension FavoritCoinViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelCell.count
+        cellModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellMainController") as! CryptoTableViewCell
-        let _ = CryptoTableViewCellConfigurator().configure(view: cell, coin: modelCell[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellFavoritController") as! CryptoTableViewCell
+        CryptoTableViewCellConfigurator().configure(view: cell, coin: cellModel[indexPath.row])
         
         return cell
     }
@@ -92,19 +96,19 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//MARK: - MainViewControllerInputProtocol
-extension MainViewController: MainViewControllerInputProtocol {
+
+//MARK: - FavoritCoinViewControllerInputProtocol
+extension FavoritCoinViewController: FavoritCoinViewControllerInputProtocol {
     func reloadData(modelCell: [CryptoTableViewCellInputProtocol]) {
-        self.modelCell = modelCell
+        self.cellModel = modelCell
+        tableView.reloadData()
         refreshControl.endRefreshing()
-        DispatchQueue.main.async { [unowned self] in
-            tableView.reloadData()
-        }
     }
 }
 
+
 //MARK: - UISearchResultsUpdating
-extension MainViewController: UISearchResultsUpdating {
+extension FavoritCoinViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
         presenter.searchTextInput(searchText: searchText)
